@@ -1,7 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Le Nostre Pizze";
-    Layout = null;
+    ViewData["Title"] = "Le Nostre Pizze Tonde";
+
+     var  ingredientsList= Enum.GetValues(typeof(IngredientsOptions));
 }
+@model List<Pizza>;
+
 <!DOCUMENT html>
 <html lang="en">
 <head>
@@ -10,9 +13,69 @@
 
 <body>
    <div class="container text-center" style="margin-top:100px">
-        <h1 class="text-danger p-5" style="transform:scale(150%)">@ViewData["Title"]</h1>
+      <h1 class="text-danger p-5" style="transform:scale(150%)">@ViewData["Title"]</h1>
+   
+
+   @* @foreach (IngredientsOptions item in ingredientsList)
+            {
+                @item;
+            }*@
+
+            @if(Model.Count>0)
+            {
+
+            <!--Table-->
+            <table class="table table-striped pt-5 border">
+                <!--Table head-->
+                <thead>
+                    <tr>
+                       <th></th>
+                        <th >nome</th>                      
+                        <th>prezzo</th>
+                    </tr>
+                </thead>
+                <!--Table body-->
+                <tbody>
+
+                        @foreach (Pizza Pizza in Model)
+                        {
+
+                        <tr>
+                            <th>
+                                <a  class="btn btn-danger"
+                                   href="@Url.Action("ShowDetails", "Pizza", new {Id=@Pizza.Id})">
+                                    Visuaizza Dettagli
+                                    <i class="fa-solid fa-pizza-slice"></i>
+                                
+                                </a>
+                                <img class="img-fluid" style="width:100px" src="@Pizza.Img" alt="@Pizza.Name">                                 
+                            </th>
+                            <th >
+                                <h5>@Pizza.Name</h5>
+                                <small>
+                               @*    @string.Join( ",", Pizza.Ingredients.ToArray() );*@
+                                </small>
+
+                            </th>
+                         
+                            <th>@Pizza.Price</th>
+                        
+                        </tr>
+                        }
+                </tbody>
+            <!--Table body-->
+            </table>
+            }
+            else
+            {
+            <h2>Siamo spiacenti: essuna Pizza Tonda disponibile al momento...</h2>
+            }
+
+
+
+		
         <!--Table-->
-        <table class="table table-striped pt-5 border">
+     @*   <table class="table table-striped pt-5 border">
             <!--Table head-->
             <thead>
 
@@ -65,7 +128,7 @@
               
             </tbody>
             <!--Table body-->
-        </table>
+        </table>*@
         <!--Table-->
     </div>
 </body>
